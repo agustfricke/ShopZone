@@ -16,7 +16,7 @@ const Foo = () => {
   return (
     <div>
 
-      {data.map((user: User)=> (
+      {data?.map((user: User)=> (
         <div key={user.id}>{user.email}</div>
       ))}
 

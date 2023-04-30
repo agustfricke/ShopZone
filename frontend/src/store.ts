@@ -15,9 +15,8 @@ type Actions = {
 export const useAuthStore = create(
   persist<State & Actions>(
     (set) => ({
-      // ?????
-      access: null,
-      refresh: null,
+      access: '',
+      refresh: '',
       isAuth: false,
       setToken: (access: string, refresh: string) =>
         set(() => ({
@@ -25,7 +24,7 @@ export const useAuthStore = create(
           refresh,
           isAuth: !!access && !!refresh,
         })),
-      logout: () => set(() => ({ access: null,refresh: null, isAuth: false })),
+      logout: () => set(() => ({ access: '', refresh: '' , isAuth: false })),
     }),
     {
       name: "auth",

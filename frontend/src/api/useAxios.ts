@@ -3,7 +3,6 @@ import { useAuthStore } from "../store";
 import jwt_decode from "jwt-decode"
 
 function logoutbb () {
-  console.log('Bye bye aca pongo el logout')
   useAuthStore.getState().logout()
 }
 
