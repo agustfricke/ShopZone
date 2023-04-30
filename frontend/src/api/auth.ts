@@ -8,6 +8,7 @@ export const loginRequest = async (email: string, password: string) =>
     password,
   });
 
+
 export const getUser = async () => {
   const res = await authApi.get('/users/me/')
   return res.data

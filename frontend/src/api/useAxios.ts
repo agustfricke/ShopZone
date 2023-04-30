@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, {AxiosRequestHeaders} from "axios";
 import { useAuthStore } from "../store";
 import jwt_decode from "jwt-decode"
 
@@ -6,7 +6,6 @@ function logoutbb () {
   console.log('Bye bye aca pongo el logout')
   useAuthStore.getState().logout()
 }
-
 
 const baseURL = "http://127.0.0.1:8000";
 
@@ -16,18 +15,17 @@ const authApi = axios.create({
 });
 
 
-authApi.interceptors.request.use( async (config) => {
-
-  const token = useAuthStore.getState().access;
-
+authApi.interceptors.request.use(async (config) => {
+  const token : string = useAuthStore.getState().access;
   config.headers = {
     Authorization: `Bearer ${token}`,
-  };
+  } as AxiosRequestHeaders;
 
+  type Token = {
+    exp: number
+  }
 
-  const tokenDecoded = jwt_decode(token)
-  console.log(tokenDecoded)
-  console.log(token)
+  const tokenDecoded : Token = jwt_decode(token)
 
   const expiration = new Date(tokenDecoded.exp);
   const now = new Date();
