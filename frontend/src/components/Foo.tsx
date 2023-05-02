@@ -17,7 +17,9 @@ const Foo = () => {
     <div>
 
       {data?.map((user: User)=> (
-        <div key={user.id}>{user.email}</div>
+        <div key={user.id}>
+          {user.email}
+        </div>
       ))}
 
     </div>

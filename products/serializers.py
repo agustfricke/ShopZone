@@ -13,6 +13,7 @@ class ReviewSerializer(serializers.ModelSerializer):
     def get_avatar(self, obj):
         return obj.user.avatar.url
 
+
 class ProductSerializer(serializers.ModelSerializer):
 
     reviews = serializers.SerializerMethodField(read_only=True)

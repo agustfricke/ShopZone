@@ -21,9 +21,13 @@ function logoutbb () {
         <>
     <button onClick={logoutbb}>Logout</button>
       <Link to={'/foo'}>Foo</Link>
+      <Link to={''}>Home</Link>
       </>
       ) : (
-      <Link to={'/'}>Login</Link>
+          <>
+      <Link to={'/login'}>Login</Link>
+      <Link to={''}>Home</Link>
+      </>
       )}
       <Outlet />
     </div>

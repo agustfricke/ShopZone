@@ -1,0 +1,25 @@
+create product
+read infinity query 
+update product
+delete product
+
+search product
+add review
+delete review
+update review
+read review
+
+add to cart
+delete from cart
+
+create order
+read order
+update order
+
+add paypal
+
+tailwind css full UI
+
+
+
+

@@ -4,7 +4,6 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from backend.permissions import IsOwnerOrReadOnly
-
 from . models import Product, Review
 from . serializers import ProductSerializer, ReviewSerializer
 from backend.pagination import CustomPagination 
@@ -13,6 +12,7 @@ class ProductList(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     pagination_class = CustomPagination
+
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 

@@ -8,11 +8,17 @@ function logoutbb () {
 
 const baseURL = "http://127.0.0.1:8000";
 
-const authApi = axios.create({
+export const axi = axios.create({
+  baseURL,
+  headers: {
+    "Content-Type": "multipart/form-data",
+  },
+})
+
+export const authApi = axios.create({
   baseURL,
   withCredentials: true,
 });
-
 
 authApi.interceptors.request.use(async (config) => {
   const token : string = useAuthStore.getState().access;
@@ -51,4 +57,3 @@ authApi.interceptors.request.use(async (config) => {
   return config;
 });
 
-export default authApi;
