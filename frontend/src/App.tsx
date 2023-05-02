@@ -5,6 +5,7 @@ import Layout from './components/Layout'
 import PrivateRoute from './components/PrivateRoute'
 import Home from './components/Home'
 import AddProduct from './components/AddProduct'
+import FileInput from './components/FileInput'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
 
         <Route element={<PrivateRoute/>}>
           <Route path="/foo" element={<Foo/>} />
+          <Route path="/fiz" element={<FileInput/>} />
           <Route path="/add" element={<AddProduct/>} />
         </Route>
 
