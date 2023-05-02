@@ -4,8 +4,8 @@ import Foo from './components/Foo'
 import Layout from './components/Layout'
 import PrivateRoute from './components/PrivateRoute'
 import Home from './components/Home'
-import AddProduct from './components/AddProduct'
 import FileInput from './components/FileInput'
+import SoloProd from './components/SoloProd'
 
 function App() {
   return (
@@ -16,8 +16,8 @@ function App() {
 
         <Route element={<PrivateRoute/>}>
           <Route path="/foo" element={<Foo/>} />
-          <Route path="/fiz" element={<FileInput/>} />
-          <Route path="/add" element={<AddProduct/>} />
+          <Route path="/add" element={<FileInput/>} />
+          <Route path=":id" element={<SoloProd/>} />
         </Route>
 
           <Route path='/login' element={<LoginPage />} />
