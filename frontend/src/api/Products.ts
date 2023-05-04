@@ -11,6 +11,11 @@ interface EditProdFormData{
   id: string | null;
 }
 
+export const q = async (name: string ) => {
+  const res = await axi.get(`products/search/?query=${name}`)
+  return res.data
+}
+
 export const deleteReq = async (id: string) => {
   await authApi.delete(`products/${id}/`)
 }

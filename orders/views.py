@@ -41,7 +41,7 @@ def create_order(request):
         )
 
         for i in orderItems:
-            product = Product.objects.get(id=i['product'])
+            product = Product.objects.get(pk=i['product'])
 
             item = Orderitem.objects.create(
                 product=product,
@@ -63,7 +63,7 @@ def create_order(request):
 def solo_order(request, pk):
     user = request.user
     try:
-        order = Order.objects.get(_id=pk)
+        order = Order.objects.get(pk=pk)
         if user.is_staff or order.user == user:
             serializer = OrderSerializer(order, many=False)
             return Response(serializer.data)
@@ -86,7 +86,7 @@ def my_orders(request):
 @api_view(['PUT'])
 @permission_classes([IsAdminUser])
 def delivered(request, pk):
-    order = Order.objects.get(id=pk)
+    order = Order.objects.get(pk=pk)
     order.is_delivered = True
     order.delivered_at = datetime.now()
     order.save()

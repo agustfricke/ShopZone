@@ -6,4 +6,5 @@ urlpatterns = [
     path('<int:pk>/', views.prod_detail),
     path('review/<int:pk>/', views.ReviewList.as_view()),
     path('review/<int:pk>/', views.ReviewDetail.as_view()),
+    path('search/', views.search),
 ]

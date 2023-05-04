@@ -44,7 +44,6 @@ def prod_detail(request, pk):
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
-# Poner esto dentro de la clase ProductList??
 @api_view(['GET'])
 def search(request):
     query = request.query_params.get('query')
@@ -52,7 +51,7 @@ def search(request):
         query = ''
     prod = Product.objects.filter(name__icontains=query)
     serializer = ProductSerializer(prod, many=True)
-    return Response({ 'prod': serializer.data })
+    return Response({ 'products': serializer.data })
 
 class ReviewList(generics.ListCreateAPIView):
     queryset = Review.objects.all()

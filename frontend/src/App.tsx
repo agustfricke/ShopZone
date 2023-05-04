@@ -6,6 +6,7 @@ import PrivateRoute from './components/PrivateRoute'
 import Home from './components/Home'
 import FileInput from './components/FileInput'
 import SoloProd from './components/SoloProd'
+import Search from './components/Search'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/foo" element={<Foo/>} />
           <Route path="/add" element={<FileInput/>} />
           <Route path=":id" element={<SoloProd/>} />
+          <Route path="/search" element={<Search/>} />
         </Route>
 
           <Route path='/login' element={<LoginPage />} />
