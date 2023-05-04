@@ -7,6 +7,8 @@ import Home from './components/Home'
 import FileInput from './components/FileInput'
 import SoloProd from './components/SoloProd'
 import Search from './components/Search'
+import Order from './components/Order'
+import Fizz from './components/Fizz'
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
           <Route path="/add" element={<FileInput/>} />
           <Route path=":id" element={<SoloProd/>} />
           <Route path="/search" element={<Search/>} />
+          <Route path="/order" element={<Order/>} />
+          <Route path="/fizz" element={<Fizz/>} />
         </Route>
 
           <Route path='/login' element={<LoginPage />} />

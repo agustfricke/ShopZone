@@ -57,7 +57,7 @@ interface Prod {
               <h2>{t.name}</h2>
               <button onClick={() => deleteProdMutation.mutate(t.id)}>Delete</button>
               <button onClick={() => {
-          add(t.id);
+          add(t.id, t.name);
       }}>Add Prod</button>
               <button onClick={() => {
           remove(t.id);

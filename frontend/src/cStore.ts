@@ -3,11 +3,12 @@ import { persist } from 'zustand/middleware'
 
 export interface Cart {
   id: string;
+  name: string;
 }
 
 interface CartState {
   cart: Cart[];
-  add: (id: string) => void;
+  add: (id: string, name: string) => void;
   remove: (id: string) => void;
 }
 
@@ -15,12 +16,13 @@ export const Cstore = create<CartState>()(
   persist(
     (set) => ({
       cart: [],
-  add: (id: string) => {
+  add: (id: string, name: string) => {
     set((state) => ({
       cart: [
         ...state.cart,
         {
-          id
+          id,
+          name,
         } as Cart,
       ],
     }));
