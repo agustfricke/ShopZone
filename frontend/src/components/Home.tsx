@@ -2,6 +2,7 @@ import {  useInfiniteQuery, useMutation, useQueryClient } from "@tanstack/react-
 import { getProd, deleteReq } from "../api/Products"
 import { useInView } from 'react-intersection-observer'
 import { useEffect } from "react"
+import { Cstore } from "../cStore"
 
 const Home = () => {
 
@@ -9,6 +10,8 @@ interface Prod {
   id: string
   name: string
 }
+
+  const { add, remove } = Cstore()
 
   const { ref, inView } = useInView()
 
@@ -53,6 +56,13 @@ interface Prod {
             <div key={t.id}>
               <h2>{t.name}</h2>
               <button onClick={() => deleteProdMutation.mutate(t.id)}>Delete</button>
+              <button onClick={() => {
+          add(t.id);
+      }}>Add Prod</button>
+              <button onClick={() => {
+          remove(t.id);
+      }}>Remove Prod</button>
+
             </div>
 
           ))}

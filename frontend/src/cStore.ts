@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { persist, createJSONStorage } from 'zustand/middleware'
+import { persist } from 'zustand/middleware'
 
 export interface Cart {
   id: string;
@@ -11,7 +11,7 @@ interface CartState {
   remove: (id: string) => void;
 }
 
-export const useStore = create<CartState>()(
+export const Cstore = create<CartState>()(
   persist(
     (set) => ({
       cart: [],
@@ -33,8 +33,6 @@ export const useStore = create<CartState>()(
     }),
     {
       name: 'cartItems', 
-      storage: createJSONStorage(() => sessionStorage), 
-      partialize: (state) => ({ cart: state.cart }),
     }
   )
 )
