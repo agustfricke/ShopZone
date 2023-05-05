@@ -36,7 +36,7 @@ authApi.interceptors.request.use(async (config) => {
   const now = new Date();
   const fiveMinutes = 1000 * 60 * 5;
 
-  if( expiration.getTime() - now.getTime() < fiveMinutes ){
+  if( expiration.getTime() - now.getTime() < fiveMinutes )
 
     try {
     const res = await axios.post('http://127.0.0.1:8000/users/refresh/', { refresh: useAuthStore.getState().refresh })
@@ -49,11 +49,9 @@ authApi.interceptors.request.use(async (config) => {
         logoutbb()
       }
     }
-} else {
+
     console.log("JWT is valid for more than 5 minutes", expiration);
     return config
-}
 
-  return config;
 });
 

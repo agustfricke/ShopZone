@@ -1,8 +1,8 @@
-import {  useInfiniteQuery, useMutation, useQueryClient } from "@tanstack/react-query"
-import { getProd, deleteReq } from "../api/Products"
+import {  useInfiniteQuery } from "@tanstack/react-query"
+import { getProd } from "../api/Products"
 import { useInView } from 'react-intersection-observer'
 import { useEffect } from "react"
-import { Cstore } from "../cStore"
+import ProductCard from "./ProductCard"
 
 const Home = () => {
 
@@ -11,11 +11,7 @@ interface Prod {
   name: string
 }
 
-  const { add, remove } = Cstore()
-
   const { ref, inView } = useInView()
-
-  const queryClient = useQueryClient()
 
   const { data,isLoading, error, isFetchingNextPage, fetchNextPage, hasNextPage } = useInfiniteQuery(
     ['prods'],
@@ -24,16 +20,7 @@ interface Prod {
       getNextPageParam: lastPage => lastPage.meta.next,
     }
   );
-
-  const deleteProdMutation = useMutation({
-    mutationFn: deleteReq,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['prods']})
-    },
-    onError: (error) => {
-      console.error(error)
-    }
-  })
+  console.log(data)
 
   useEffect(() => {
     if (inView) {
@@ -53,17 +40,7 @@ interface Prod {
 
           {page.data.map((t: Prod) => (
 
-            <div key={t.id}>
-              <h2>{t.name}</h2>
-              <button onClick={() => deleteProdMutation.mutate(t.id)}>Delete</button>
-              <button onClick={() => {
-          add(t.id, t.name);
-      }}>Add Prod</button>
-              <button onClick={() => {
-          remove(t.id);
-      }}>Remove Prod</button>
-
-            </div>
+					<ProductCard key={t.id} product={t} />
 
           ))}
 

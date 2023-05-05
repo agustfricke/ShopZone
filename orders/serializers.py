@@ -12,7 +12,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class OrderSerializer(serializers.ModelSerializer):
-    image = serializers.SerializerMethodField(source='product.image.url')
+    # image = serializers.SerializerMethodField(source='product.image.url')
     user = serializers.ReadOnlyField(source='user.username')
     #???
     order_items = serializers.SerializerMethodField(read_only=True)
@@ -22,8 +22,8 @@ class OrderSerializer(serializers.ModelSerializer):
         model = Order
         fields = '__all__'
 
-    def get_image(self, obj):
-        return obj.product.image.url
+    # def get_image(self, obj):
+    #     return obj.product.image.url
 
     # Se puede hacer mejor??
     def get_order_items(self, obj):

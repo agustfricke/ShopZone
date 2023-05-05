@@ -20,42 +20,77 @@ def get_orders(request):
 def create_order(request):
     user = request.user
     data = request.data
-
     orderItems = data['order_items']
-
-    if orderItems and len(orderItems) == 0:
-        message = {'You must have at least one item in your order'}
-        return Response(message, status=status.HTTP_400_BAD_REQUEST)
-    else:
-        order = Order.objects.create(
+    order = Order.objects.create(
             user=user,
             total_price=data['total_price']
-        )
-
-        ShippingAddress.objects.create(
+            )
+    ShippingAddress.objects.create(
             order=order,
             address=data['address'],
             city=data['city'],
             country=data['country'],
-            postal_code=data['postalCode'],
-        )
-
-        for i in orderItems:
-            product = Product.objects.get(pk=i['product'])
-
-            item = Orderitem.objects.create(
-                product=product,
-                order=order,
-                name=product.name,
-                quantity=i['quantity'],
-                price=i['price'],
+            postal_code=data['postal_code'],
+            shipping_price=data['shipping_price'],
             )
+    for i in orderItems:
+        product = Product.objects.get(id=i['id'])
 
-            product.count_in_stock -= item.quantity
-            product.save()
+        item = Orderitem.objects.create(
+                    product=product,
+                    order=order,
+                    name=product.name,
+                    quantity=i['quantity'],
+                    price=i['price'],
+                    )
+
+        product.count_in_stock -= item.quantity
+        product.save()
 
         serializer = OrderSerializer(order, many=False)
         return Response(serializer.data)
+
+# @api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+# def create_order(request):
+#     user = request.user
+#     data = request.data
+
+#     orderItems = data['order_items']
+
+#     if orderItems and len(orderItems) == 0:
+#         message = {'You must have at least one item in your order'}
+#         return Response(message, status=status.HTTP_400_BAD_REQUEST)
+#     else:
+#         order = Order.objects.create(
+#             user=user,
+#             total_price=data['total_price']
+#         )
+
+#         ShippingAddress.objects.create(
+#             order=order,
+#             address=data['address'],
+#             city=data['city'],
+#             country=data['country'],
+#             postal_code=data['postalCode'],
+#         )
+
+#         for i in orderItems:
+#             product = Product.objects.get(pk=i['product'])
+
+#             item = Orderitem.objects.create(
+#                 product=product,
+#                 order=order,
+#                 name=product.name,
+#                 quantity=i['quantity'],
+#                 price=i['price'],
+#             )
+
+#             product.count_in_stock -= item.quantity
+#             product.save()
+
+#         serializer = OrderSerializer(order, many=False)
+#         return Response(serializer.data)
 
 
 @api_view(['GET'])

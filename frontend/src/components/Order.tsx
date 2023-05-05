@@ -6,22 +6,19 @@ import { Cstore } from '../cStore';
 const Order = () => {
 
   const { cart }  = Cstore();
-  // const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
-  // const createOrderMutation = useMutation({
-  //   mutationFn: createOrder ,
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries({ queryKey: ["order"] });
-  //   },
-  //   onError: (error) => {
-  //     console.error(error);
-  //   },
-  // });
+  const createOrderMutation = useMutation({
+    mutationFn: createOrder ,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["order"] });
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
 
-  // const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //     createOrderMutation.mutate(order);
-  // };
+  console.log(cart)
 
 const countDuplicates = (cart) =>
   cart.reduce((acc, obj) => {
@@ -30,21 +27,52 @@ const countDuplicates = (cart) =>
     return acc;
   }, {});
 
-console.log(countDuplicates(cart)); // { "9-golanggggg": 3, "10-C": 1 }
-
   const duplicateItems = Object.keys(countDuplicates(cart)).map((key) => ({
     key,
+    name: key.split("-")[1],
     count: countDuplicates(cart)[key],
   }));
 
+  const order_items = duplicateItems.map((item) => ({
+    id: item.key.split("-")[0],
+    name: item.key.split("-")[1],
+    quantity: item.count,
+    // price: item.price,
+  }));
+
+  // const total_price = order_items.reduce((acc, obj) => {
+  //   return acc + obj.price;
+  // }, 0);
+
+
+  // Expected data to create order
+  const order = {
+    total_price: 32,
+    address: 'Balcon',
+    city: 'Cordoba',
+    country: 'Argentina',
+    postal_code: '5000',
+    shipping_price: '12',
+    order_items: order_items,
+    // order_items: [
+    //   {id: 9, name: 'Golang', quantity: 1, price: 12},
+    //   {id: 10, name: 'test', quantity: 2, price: 10},
+    // ]
+  }
+
+  function addOrder() {
+    createOrderMutation.mutate(order);
+  }
+
   return (
 
- <div>
+    <div>
       {duplicateItems.map((item) => (
         <div key={item.key}>
-          {item.key} (x{item.count})
+          {item.name} (x{item.count})
         </div>
       ))}
+      <button onClick={addOrder}>Submit</button>
     </div>
 
   )

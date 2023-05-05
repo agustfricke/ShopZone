@@ -6,6 +6,7 @@ import { addProd } from "../api/Products";
 const FileInput = () => {
 
   const [textValue, setTextValue] = useState<string>('');
+  const [price, setPriceValue] = useState<string>('');
   const [fileValue, setFileValue] = useState<File | null>(null);
   const [filePreview, setFilePreview] = useState<string>('');
 
@@ -23,12 +24,16 @@ const FileInput = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-      addProdMutation.mutate({ name: textValue, image: fileValue});
+      addProdMutation.mutate({ name: textValue, image: fileValue, price: price});
 
   };
 
   const handleTextChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTextValue(event.target.value);
+  };
+
+  const handlePriceChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setPriceValue(event.target.value);
   };
 
 const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -46,6 +51,7 @@ const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
   return (
     <form onSubmit={handleSubmit}>
       <input type="text" value={textValue} onChange={handleTextChange} />
+      <input type="text" value={price} onChange={handlePriceChange} />
       <input type="file" onChange={handleFileChange} />
       {fileValue && (
         <img

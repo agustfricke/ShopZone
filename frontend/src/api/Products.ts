@@ -2,6 +2,7 @@ import { authApi, axi } from "./useAxios"
 
 interface AddProdFormData {
   name: string;
+  price: string;
   image: File | null;
 }
 
@@ -37,6 +38,7 @@ export const editReq = async (data: EditProdFormData) => {
 export const addProd = async (data: AddProdFormData) => {
   const formData = new FormData();
   formData.append("name", data.name);
+  formData.append("price", data.price);
   if (data.image) {
     formData.append("image", data.image);
   }
