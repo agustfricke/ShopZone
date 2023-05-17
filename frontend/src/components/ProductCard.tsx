@@ -27,6 +27,8 @@ const ProductCard = ({ product }: Props) => {
   return (
     <>
       {product.name} 
+      {product.price}
+      <img src={product.image} alt={product.name} className="h-11 w-11"/>
       <button
         type='button'
         className='ml-2 bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600'

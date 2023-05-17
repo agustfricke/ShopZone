@@ -3,13 +3,15 @@ import { getProd } from "../api/Products"
 import { useInView } from 'react-intersection-observer'
 import { useEffect } from "react"
 import ProductCard from "./ProductCard"
+import { Product } from "../types"
+
 
 const Home = () => {
 
 interface Prod {
-  id: string
-  name: string
+  product: Product
 }
+
 
   const { ref, inView } = useInView()
 

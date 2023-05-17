@@ -7,7 +7,6 @@ import Home from './components/Home'
 import FileInput from './components/FileInput'
 import SoloProd from './components/SoloProd'
 import Search from './components/Search'
-import Order from './components/Order'
 import Fizz from './components/Fizz'
 import OrderFoo from './components/OrderFoo'
 

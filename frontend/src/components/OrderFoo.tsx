@@ -23,6 +23,9 @@ const OrderFoo = () => {
     },
   });
 
+  console.log(total_price)
+  console.log(cart)
+
   // Expected data to create order
   const order = {
     total_price: total_price,

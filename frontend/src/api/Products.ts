@@ -1,5 +1,6 @@
 import { authApi, axi } from "./useAxios"
 
+// Eliminar esto y poner el Producto de types.ts
 interface AddProdFormData {
   name: string;
   price: string;
