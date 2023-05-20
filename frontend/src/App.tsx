@@ -1,39 +1,37 @@
-import { BrowserRouter , Routes, Route } from 'react-router-dom'
-import LoginPage from './components/LoginPage'
-import Foo from './components/Foo'
-import Layout from './components/Layout'
-import PrivateRoute from './components/PrivateRoute'
-import Home from './components/Home'
-import FileInput from './components/FileInput'
-import SoloProd from './components/SoloProd'
-import Search from './components/Search'
-import Fizz from './components/Fizz'
-import OrderFoo from './components/OrderFoo'
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import Layout from "./components/Layout"
+import { PrivateRoute, AdminRoute } from "./components/PrivateRoute"
 
+import LandingPage from "./pages/LandingPage"
+import LoginPage from "./pages/LoginPage"
+import RegisterPage from "./pages/RegisterPage"
+import Home from "./pages/Home"
+
+import AdminPage from "./pages/AdminPage"
 
 function App() {
+
   return (
     <BrowserRouter>
       <Routes>
-
         <Route path='/' element={<Layout/>}>
 
-        <Route element={<PrivateRoute/>}>
-          <Route path="/foo" element={<Foo/>} />
-          <Route path="/add" element={<FileInput/>} />
-          <Route path=":id" element={<SoloProd/>} />
-          <Route path="/search" element={<Search/>} />
-          <Route path="/order" element={<OrderFoo/>} />
-          <Route path="/fizz" element={<Fizz/>} />
-        </Route>
+          <Route element={<PrivateRoute/>}>
+            <Route index element={<Home/>} />
+          </Route>
+
+          <Route path='admin' element={<AdminRoute/>}>
+            <Route index element={<AdminPage/>} />
+          </Route>
 
           <Route path='/login' element={<LoginPage />} />
-          <Route index element={<Home/>} />
+          <Route path='/register' element={<RegisterPage />} />
+          <Route index element={<LandingPage />} />
 
         </Route>
-
       </Routes>
     </BrowserRouter>
   )
 }
+
 export default App

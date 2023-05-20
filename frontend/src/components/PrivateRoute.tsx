@@ -1,7 +1,7 @@
 import { Outlet, Navigate } from 'react-router-dom';
-import { useAuthStore } from "../store";
+import { useAuthStore } from "../store/auth";
 
-const PrivateRoute = () => {
+export const PrivateRoute = () => {
 
   const { isAuth } = useAuthStore()
 
@@ -10,4 +10,9 @@ const PrivateRoute = () => {
     )
 }
 
-export default PrivateRoute;
+export const AdminRoute = () => {
+  const isAdmin = true 
+  return (
+    isAdmin ? <Outlet/> : <Navigate to='/'/>
+  )
+}

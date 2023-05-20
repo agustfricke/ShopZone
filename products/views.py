@@ -1,23 +1,35 @@
 from rest_framework import generics, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated 
 
 from backend.permissions import IsOwnerOrReadOnly
 from . models import Product, Review
 from . serializers import ProductSerializer, ReviewSerializer
 from backend.pagination import CustomPagination 
 
-class ProductList(generics.ListCreateAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-    pagination_class = CustomPagination
 
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+@api_view(['GET'])
+def product_list(request):
+    if request.method == 'GET':
+        products = Product.objects.all()
+        paginator = CustomPagination()
+        paginated_products = paginator.paginate_queryset(products, request)
+        serializer = ProductSerializer(paginated_products, many=True)
+        return paginator.get_paginated_response(serializer.data)
+    elif request.method == 'POST':
+        if request.user.is_staff:
+            serializer = ProductSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save(user=request.user)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def prod_detail(request, pk):
+def product_detail(request, pk):
     try:
         prod = Product.objects.get(pk=pk)
     except Product.DoesNotExist:
@@ -62,4 +74,4 @@ class ReviewList(generics.ListCreateAPIView):
 class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]

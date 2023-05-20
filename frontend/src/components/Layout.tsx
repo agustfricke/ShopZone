@@ -1,37 +1,16 @@
-import { Link, Outlet, useNavigate } from "react-router-dom"
-import { useAuthStore } from "../store";
-
+import { Outlet } from 'react-router-dom';
+import Header from './Header';
+import { Toaster } from 'react-hot-toast';
 
 const Layout = () => {
-
-  const nav = useNavigate()
-
-function logoutbb () {
-  useAuthStore.getState().logout()
-  nav('/')
-}
-
-  const { isAuth } = useAuthStore()
-  console.log(isAuth)
-
   return (
-
-    <div>
-      { isAuth ? (
-        <>
-    <button onClick={logoutbb}>Logout</button>
-      <Link to={'/foo'}>Foo</Link>
-      <Link to={''}>Home</Link>
-      </>
-      ) : (
-          <>
-      <Link to={'/login'}>Login</Link>
-      <Link to={''}>Home</Link>
-      </>
-      )}
-      <Outlet />
-    </div>
-
+      <div>
+          <Toaster />
+          <Header />
+        <div className="flex justify-center min-h-screen bg-white dark:bg-gray-900 ">
+          <Outlet />
+        </div>
+      </div>
   )
 }
 

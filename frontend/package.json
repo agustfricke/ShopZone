@@ -10,17 +10,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@tanstack/react-query": "^4.29.5",
+    "@headlessui/react": "^1.7.14",
+    "@heroicons/react": "^2.0.18",
+    "@tanstack/react-query": "^4.29.7",
     "axios": "^1.4.0",
-    "dayjs": "^1.11.7",
-    "formik": "^2.2.9",
     "jwt-decode": "^3.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.1",
     "react-icons": "^4.8.0",
     "react-intersection-observer": "^9.4.3",
-    "react-router-dom": "^6.11.0",
-    "zustand": "^4.3.7"
+    "react-router-dom": "^6.11.2",
+    "zustand": "^4.3.8"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

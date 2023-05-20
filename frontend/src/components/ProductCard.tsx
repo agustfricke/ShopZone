@@ -1,45 +1,41 @@
-import { Product } from "../types"
-import {  useMutation, useQueryClient } from "@tanstack/react-query"
-import { deleteReq } from "../api/Products"
-import { useCartStore } from "../store/CartStore"
+import { Product } from "../Interfaces"
+import { Link } from "react-router-dom"
 
 interface Props {
   product: Product
+  page: string
 }
 
-const ProductCard = ({ product }: Props) => {
-
-  const queryClient = useQueryClient()
-
-  const deleteProdMutation = useMutation({
-    mutationFn: deleteReq,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['prods']})
-    },
-    onError: (error) => {
-      console.error(error)
-    }
-  })
-
-  const addToCart = useCartStore(state => state.addToCart)
-  const removeFromCart = useCartStore(state => state.removeFromCart)
-
+const ProductCard = ({ product, page }: Props) => {
   return (
-    <>
-      {product.name} 
-      {product.price}
-      <img src={product.image} alt={product.name} className="h-11 w-11"/>
-      <button
-        type='button'
-        className='ml-2 bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600'
-        onClick={() => addToCart(product)}
-        >
-        Add to Cart
-      </button>
-      <button onClick={() => removeFromCart(product)}>Remove from Cart</button>
-      <button onClick={() => deleteProdMutation.mutate(product.id)}>Delete</button>
-      </>
+    <div className="h-96 
+      dark:bg-[#263849] p-8 
+      rounded-xl flex flex-col 
+      items-center gap-2 text-center bg-slate-400">
+      <img
+        src={`${product.image}`}
+        className="w-60 h-60 object-cover -mt-20 shadow-2xl rounded-lg"
+      />
+      <p className="text-xl dark:text-slate-200 text-gray-950 font-bold">{product.name}</p>
+      <span className="dark:text-slate-300 text-black">{product.description}</span>
+      <span className="dark:text-white text-black">${product.price}</span>
+
+      <Link className="dark:text-white 
+        dark:hover:text-yellow-300 
+        font-mono" 
+        to={`/reviews/${product.id}/`}>
+        {`${product.num_reviews} reviews`}
+      </Link>
+
+      <Link to={`/product/${product.name}`}>
+        <div className='flex space-x-2 
+          items-center dark:text-slate-200 
+          dark:bg-gray-950 dark:hover:bg-slate-900 
+          font-bold rounded-lg p-2 px-10 bg-gray-600 text-slate-200 hover:bg-gray-700'>
+          {page === 'solo' ? 'Add to Cart' : 'View'}
+        </div>
+      </Link>
+    </div>
   )
 }
-
 export default ProductCard
