@@ -16,6 +16,7 @@ class Orderitem(models.Model):
     name = models.CharField(max_length=250, blank=True)
     quantity = models.IntegerField(null=True, blank=True, default=0)
     price = models.CharField(max_length=250, blank=True)
+    # filter by product name and get the total quantity sold
 
 class ShippingAddress(models.Model):
     order = models.OneToOneField(Order, on_delete=models.CASCADE, null=True, blank=True)

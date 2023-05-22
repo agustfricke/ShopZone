@@ -19,7 +19,7 @@ export const putProduct = async (data: Product) => {
   const formData = new FormData();
   formData.append("name", data.name);
   formData.append("description", data.description);
-  formData.append("stock", data.stock);
+  formData.append("stock", data.count_in_stock.toString());
   formData.append("category", data.category);
   formData.append("price", data.price);
   formData.append("image", data.image);
@@ -30,7 +30,7 @@ export const postProduct = async (data: Product) => {
   const formData = new FormData();
   formData.append("name", data.name);
   formData.append("description", data.description);
-  formData.append("stock", data.stock);
+  formData.append("stock", data.count_in_stock.toString());
   formData.append("category", data.category);
   formData.append("price", data.price);
   formData.append("image", data.image);

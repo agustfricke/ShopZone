@@ -13,7 +13,7 @@ const ProductCard = ({ product, page }: Props) => {
       rounded-xl flex flex-col 
       items-center gap-2 text-center bg-slate-400">
       <img
-        src={`${product.image}`}
+        src={`http://127.0.0.1:8000${product.image}`}
         className="w-60 h-60 object-cover -mt-20 shadow-2xl rounded-lg"
       />
       <p className="text-xl dark:text-slate-200 text-gray-950 font-bold">{product.name}</p>

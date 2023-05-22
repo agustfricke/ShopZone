@@ -9,7 +9,7 @@ class Product(models.Model):
     description = models.CharField(max_length=250, null=True, blank=True)
     rating = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     num_reviews = models.IntegerField(null=True, blank=True, default=0)
-    price = models.CharField(max_length=250, null=True, blank=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
     count_in_stock = models.IntegerField(null=True, blank=True, default=0)
     created = models.DateTimeField(auto_now_add=True)
 
