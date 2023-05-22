@@ -1,12 +1,12 @@
 export interface Product {
-  id: number
+  id?: number
   name: string
   description: string
   price: number
-  rating: number
+  rating?: number
   count_in_stock : number
   category: string
-  image: File
-  quantity: number
-  num_reviews: number
+  image: File | null;
+  quantity?: number
+  num_reviews?: number
 }

@@ -1,3 +1,4 @@
+import React from 'react';
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from 'react-intersection-observer'
 import { useEffect, useState } from 'react';
@@ -77,13 +78,13 @@ const Products = () => {
           </thead>
           <tbody>
 
-            {data?.pages.map((page: any) => (
+            {data?.pages.map((page: any, i) => (
 
-              <>
+              <React.Fragment key={i}>
 
                 {page.data.map((product: Product)=> (
 
-                  <tr className="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
+                  <tr key={product.id} className="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
                     <th scope="row" className="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                       <img src={`http://127.0.0.1:8000${product.image}`} alt={product.name} className="w-auto h-8 mr-3"/>
 
@@ -143,7 +144,7 @@ const Products = () => {
 
                 ))}
 
-              </>
+          </React.Fragment>
 
             ))}
 

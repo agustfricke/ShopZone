@@ -1,6 +1,7 @@
 import Logo from '../assets/cart.png'
 import { Link } from 'react-router-dom'
 
+
 const LandingPage = () => {
   return (
     <div 

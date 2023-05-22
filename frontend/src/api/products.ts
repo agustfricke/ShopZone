@@ -21,8 +21,10 @@ export const putProduct = async (data: Product) => {
   formData.append("description", data.description);
   formData.append("stock", data.count_in_stock.toString());
   formData.append("category", data.category);
-  formData.append("price", data.price);
-  formData.append("image", data.image);
+  formData.append("price", data.price.toString());
+  if (data.image) {
+    formData.append("image", data.image.toString());
+  }
   await authApi.put(`products/${data.id}/`, formData);
 }
 
@@ -32,9 +34,11 @@ export const postProduct = async (data: Product) => {
   formData.append("description", data.description);
   formData.append("stock", data.count_in_stock.toString());
   formData.append("category", data.category);
-  formData.append("price", data.price);
-  formData.append("image", data.image);
-  await authApi.post('products/', formData);
+  formData.append("price", data.price.toString());
+  if (data.image) {
+    formData.append("image", data.image);
+  }
+  await authApi.post('products/create/', formData);
 }
 
 export const getProducts = async ({ pageParam = 1 }) => {

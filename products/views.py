@@ -8,6 +8,16 @@ from . models import Product, Review
 from . serializers import ProductSerializer, ReviewSerializer
 from backend.pagination import CustomPagination 
 
+@api_view(['POST'])
+def create_porduct(request):
+    if request.user.is_staff:
+        serializer = ProductSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 @api_view(['GET'])
 def product_list(request):
@@ -26,6 +36,8 @@ def product_list(request):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
+    else:
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
