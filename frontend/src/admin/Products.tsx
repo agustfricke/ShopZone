@@ -1,8 +1,8 @@
 import React from 'react';
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useInView } from 'react-intersection-observer'
 import { useEffect, useState } from 'react';
-import { getProducts } from "../api/products";
+import { getProducts, deleteProduct } from "../api/products";
 import Loader from "../components/Loader"
 import  toast from "react-hot-toast"
 import { BsFillTrashFill } from "react-icons/bs";
@@ -15,6 +15,7 @@ const Products = () => {
 
   const { ref, inView } = useInView()
   const [show, setShow] = useState(false)
+  const queryClient = useQueryClient()
 
   const { data, isLoading, error, isFetchingNextPage, fetchNextPage, hasNextPage } = useInfiniteQuery(
     ['products'],
@@ -24,13 +25,23 @@ const Products = () => {
     }
   )
 
+  const deleteProductMutation = useMutation({
+    mutationFn: deleteProduct,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["products"])
+      toast.success("Product deleted successfully")
+    }, 
+    onError: (error) => {
+      console.error(error);
+    },
+  })
+  
   useEffect(() => {
     if (inView) {
       fetchNextPage()
     }
   }, [inView])
 
-  console.log(data)
 
   if (isLoading) return <Loader/>
   if(error instanceof Error) return <>{toast.error(error.message)}</>
@@ -134,9 +145,14 @@ const Products = () => {
                     </td>
                     <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                       <div className="flex items-center space-x-4">
-                        <BsFillTrashFill className="text-red-500 w-6 h-6 cursor-pointer hover:text-white"/>
+                        <BsFillTrashFill 
+                          onClick={() => {
+                            if (product.id) {
+                              deleteProductMutation.mutate(product.id.toString());
+                            }
+                          }}
+                          className="text-red-500 w-6 h-6 cursor-pointer hover:text-white"/>
                         <AiFillEdit className="text-blue-500 w-6 h-6 cursor-pointer hover:text-white"/>
-
                       </div>
                     </td>
                   </tr>
