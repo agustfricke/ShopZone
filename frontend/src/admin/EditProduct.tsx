@@ -1,15 +1,16 @@
-import React, { useState, ChangeEvent } from 'react';
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { postProduct } from '../api/products';
+import React, { useState, ChangeEvent, useEffect } from 'react';
+import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
+import { putProduct, getProduct } from '../api/products';
 import Loader from '../components/Loader';
 
 interface Props {
+  param: string
   close: () => void
 }
 
 // https://react-dropzone.org/#!/Examples
 
-const AddProduct = ({ close }: Props) => {
+const EditProduct = ({ close, param }: Props) => {
 
   const [name, setName] = useState<string>('');
   const [countInStock, setCountInStock] = useState<number>(0);
@@ -21,8 +22,24 @@ const AddProduct = ({ close }: Props) => {
 
   const queryClient = useQueryClient();
 
-  const addProdMutation = useMutation({
-    mutationFn: postProduct,
+  const { data } = useQuery({
+    queryFn: () => getProduct(param),
+    queryKey: ['product']
+  });
+
+  useEffect(() => {
+    if (data) {
+      setName(data.name);
+      setCountInStock(data.count_in_stock);
+      setCategory(data.category);
+      setDescription(data.description);
+      setImage(data.image);
+    }
+  }, [data]);
+
+
+  const editProdMutation = useMutation({
+    mutationFn: putProduct,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
     },
@@ -33,7 +50,7 @@ const AddProduct = ({ close }: Props) => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    addProdMutation.mutate({ 
+    editProdMutation.mutate({ 
       name: name, 
       count_in_stock: countInStock, 
       category: category, 
@@ -82,7 +99,7 @@ const AddProduct = ({ close }: Props) => {
     setImage(null)
   }
 
-  if(addProdMutation.isLoading) return (<Loader/>)
+  if(editProdMutation.isLoading) return (<Loader/>)
 
   return (
       <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 ">
@@ -166,7 +183,7 @@ const AddProduct = ({ close }: Props) => {
                             </button>
                             <img
                               className='h-48 w-96'
-                              src={filePreview}
+                              src={filePreview || `http://127.0.0.1:8000/${data.image}`}
                               alt="Imagen seleccionada"
                             />
                           </div>
@@ -179,7 +196,7 @@ const AddProduct = ({ close }: Props) => {
                 </div>
                 <button type="submit" className="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                   <svg className="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                  Add new product
+                  Edit product
                 </button>
               </form>
             </div>
@@ -189,4 +206,4 @@ const AddProduct = ({ close }: Props) => {
   )
 }
 
-export default AddProduct
+export default EditProduct

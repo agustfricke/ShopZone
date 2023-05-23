@@ -7,7 +7,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticate
 
 from . serializers import MyTokenObtainPairSerializer, MyUserSerializer, UserSerializer
 from . models import User
-from backend.permissions import IsOwnerOrReadOnly
+from . permissions import IsOwnerOrReadOnly
 
 # class UserDetails(generics.RetrieveUpdateDestroyAPIView):
 #     queryset = User.objects.all()

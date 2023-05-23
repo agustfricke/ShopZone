@@ -178,4 +178,5 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
+
 CORS_ALLOW_CREDENTIALS = True

@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated 
 
-from backend.permissions import IsOwnerOrReadOnly
+from . permissions import IsOwnerOrReadOnly
 from . models import Product, Review
 from . serializers import ProductSerializer, ReviewSerializer
 from backend.pagination import CustomPagination 
@@ -21,29 +21,16 @@ def create_porduct(request):
 
 @api_view(['GET'])
 def product_list(request):
-    if request.method == 'GET':
-        products = Product.objects.all()
-        paginator = CustomPagination()
-        paginated_products = paginator.paginate_queryset(products, request)
-        serializer = ProductSerializer(paginated_products, many=True)
-        return paginator.get_paginated_response(serializer.data)
-    elif request.method == 'POST':
-        if request.user.is_staff:
-            serializer = ProductSerializer(data=request.data)
-            if serializer.is_valid():
-                serializer.save(user=request.user)
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        else:
-            return Response(status=status.HTTP_401_UNAUTHORIZED)
-    else:
-        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
-
+    products = Product.objects.all()
+    paginator = CustomPagination()
+    paginated_products = paginator.paginate_queryset(products, request)
+    serializer = ProductSerializer(paginated_products, many=True)
+    return paginator.get_paginated_response(serializer.data)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def product_detail(request, pk):
+def product_detail(request, name):
     try:
-        prod = Product.objects.get(pk=pk)
+        prod = Product.objects.get(name=name)
     except Product.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 

@@ -10,8 +10,11 @@ export const deleteProduct = async (id: string) => {
   await authApi.delete(`products/${id}/`)
 }
 
-export const getProduct = async (id: string) => {
-  const res = await axi.get(`products/${id}`)
+export const getProduct = async (name: string | undefined) => {
+  if (!name) {
+    throw new Error('Product name is missing.'); 
+  }
+  const res = await axi.get(`products/${name}`)
   return res.data
 }
 
@@ -23,16 +26,16 @@ export const putProduct = async (data: Product) => {
   formData.append("category", data.category);
   formData.append("price", data.price.toString());
   if (data.image) {
-    formData.append("image", data.image.toString());
+    formData.append("image", data.image);
   }
-  await authApi.put(`products/${data.id}/`, formData);
+  await authApi.put(`products/${data.name}/`, formData);
 }
 
 export const postProduct = async (data: Product) => {
   const formData = new FormData();
   formData.append("name", data.name);
   formData.append("description", data.description);
-  formData.append("stock", data.count_in_stock.toString());
+  formData.append("count_in_stock", data.count_in_stock.toString());
   formData.append("category", data.category);
   formData.append("price", data.price.toString());
   if (data.image) {
