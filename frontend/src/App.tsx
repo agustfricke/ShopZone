@@ -8,6 +8,7 @@ import RegisterPage from "./pages/RegisterPage"
 import Home from "./pages/Home"
 
 import AdminPage from "./pages/AdminPage"
+import Drag from "./Drag"
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           </Route>
 
           <Route path='/login' element={<LoginPage />} />
+          <Route path='/drag' element={<Drag/>} />
           <Route path='/register' element={<RegisterPage />} />
           <Route index element={<LandingPage />} />
 

@@ -14,7 +14,7 @@ export const getProduct = async (name: string | undefined) => {
   if (!name) {
     throw new Error('Product name is missing.'); 
   }
-  const res = await axi.get(`products/${name}`)
+  const res = await axi.get(`products/get/${name}`)
   return res.data
 }
 
@@ -28,7 +28,8 @@ export const putProduct = async (data: Product) => {
   if (data.image) {
     formData.append("image", data.image);
   }
-  await authApi.put(`products/${data.name}/`, formData);
+  // set id en edit product
+  await authApi.put(`products/update/${data.id}/`, formData);
 }
 
 export const postProduct = async (data: Product) => {

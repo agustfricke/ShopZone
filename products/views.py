@@ -27,6 +27,32 @@ def product_list(request):
     serializer = ProductSerializer(paginated_products, many=True)
     return paginator.get_paginated_response(serializer.data)
 
+@api_view(['GET'])
+def get_solo_product(request, name):
+    product = Product.objects.get(name=name)
+    serializer = ProductSerializer(product)
+    return Response(serializer.data)
+
+@api_view(['PUT'])
+def edit_product(request, pk):
+    product = Product.objects.get(pk=pk)
+    if request.user.is_staff:
+        serializer = ProductSerializer(product, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+api_view(['DELETE'])
+def delete_product(request, pk):
+    product = Product.objects.get(pk=pk)
+    if request.user.is_staff:
+        product.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+'''
 @api_view(['GET', 'PUT', 'DELETE'])
 def product_detail(request, name):
     try:
@@ -54,6 +80,7 @@ def product_detail(request, name):
             return Response(status=status.HTTP_204_NO_CONTENT)
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
+'''
 
 @api_view(['GET'])
 def search(request):

@@ -19,6 +19,8 @@ const EditProduct = ({ close, param }: Props) => {
   const [price, setPrice] = useState<number>(0);
   const [image, setImage] = useState<File | null>(null);
   const [filePreview, setFilePreview] = useState<string>('');
+    const inputRef = React.useRef<HTMLInputElement>(null);
+    const [isHovered, setIsHovered] = useState(false);
 
   const queryClient = useQueryClient();
 
@@ -48,18 +50,19 @@ const EditProduct = ({ close, param }: Props) => {
     },
   });
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     editProdMutation.mutate({ 
-      name: name, 
-      count_in_stock: countInStock, 
-      category: category, 
-      description: description, 
-      price: price, 
-      image: image 
-    });
+        id: data.id,
+        name: name, 
+        count_in_stock: countInStock, 
+        category: category, 
+        description: description, 
+        price: price, 
+        image: image 
+        });
     close()
-  };
+};
 
   const handleNameChange= (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -95,8 +98,19 @@ const EditProduct = ({ close, param }: Props) => {
     }
   };
 
+  const handleDragEnter = (event: React.DragEvent<HTMLLabelElement>) => {
+    event.preventDefault();
+    setIsHovered(true);
+  };
+
+  const handleDragLeave = (event: React.DragEvent<HTMLLabelElement>) => {
+    event.preventDefault();
+    setIsHovered(false);
+  };
+
   const removeImage = () => {
     setImage(null)
+    setIsHovered(false)
   }
 
   if(editProdMutation.isLoading) return (<Loader/>)
@@ -164,14 +178,49 @@ const EditProduct = ({ close, param }: Props) => {
                   <div className="sm:col-span-2">
                     <div className="flex items-center justify-center w-full">
                       {image === null ? (
-                        <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                          <svg aria-hidden="true" className="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                          <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                            <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
-                            <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
-                          </div>
-                          <input id="dropzone-file" onChange={handleFileChange} type="file" className="hidden" />
-                        </label>
+
+  <label
+        htmlFor="dropzone-file"
+        className={`flex flex-col items-center justify-center w-full h-64 
+        border-2 border-gray-600 border-dashed rounded-lg 
+        cursor-pointer bg-gray-40 ${
+          isHovered ? 'bg-gray-600' : 'hover:bg-gray-600'
+        }`}
+        onDragEnter={handleDragEnter}
+        onDragLeave={handleDragLeave}
+      >
+                    <svg
+                    aria-hidden="true"
+                    className="w-10 h-10 mb-3 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    >
+                    <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                    ></path>
+                    </svg>
+                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                    <span className="font-semibold">Click to upload</span> or drag and drop
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                    SVG, PNG, JPG or GIF (MAX. 800x400px)
+                    </p>
+                    </div>
+                    <input
+                    ref={inputRef}
+            type="file"
+                id="dropzone-file"
+                multiple={true}
+            onChange={handleFileChange}
+            className="absolute w-full h-[300px] opacity-0"
+                />
+                </label>
 
                       ) : (
                           <div>
