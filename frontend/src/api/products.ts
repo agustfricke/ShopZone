@@ -12,7 +12,7 @@ export const deleteProduct = async (id: string) => {
 
 export const getProduct = async (name: string | undefined) => {
   if (!name) {
-    throw new Error('Product name is missing.'); 
+    throw new Error('No product found with that name.'); 
   }
   const res = await axi.get(`products/get/${name}`)
   return res.data
@@ -25,10 +25,9 @@ export const putProduct = async (data: Product) => {
   formData.append("stock", data.count_in_stock.toString());
   formData.append("category", data.category);
   formData.append("price", data.price.toString());
-  if (data.image) {
+  if (data.image && typeof data.image !== "string") {
     formData.append("image", data.image);
   }
-  // set id en edit product
   await authApi.put(`products/update/${data.id}/`, formData);
 }
 

@@ -10,3 +10,8 @@ export interface Product {
   quantity?: number
   num_reviews?: number
 }
+
+export interface Token {
+    exp: number
+
+};
