@@ -1,12 +1,13 @@
 from rest_framework import generics, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated 
+from rest_framework.permissions import IsAuthenticated
 
 from . permissions import IsOwnerOrReadOnly
 from . models import Product, Review
 from . serializers import ProductSerializer, ReviewSerializer
-from backend.pagination import CustomPagination 
+from backend.pagination import CustomPagination
+
 
 @api_view(['POST'])
 def create_porduct(request):
@@ -19,6 +20,7 @@ def create_porduct(request):
     else:
         return Response(status=status.HTTP_401_UNAUTHORIZED)
 
+
 @api_view(['GET'])
 def product_list(request):
     products = Product.objects.all()
@@ -27,11 +29,13 @@ def product_list(request):
     serializer = ProductSerializer(paginated_products, many=True)
     return paginator.get_paginated_response(serializer.data)
 
+
 @api_view(['GET'])
 def get_solo_product(request, name):
     product = Product.objects.get(name=name)
     serializer = ProductSerializer(product)
     return Response(serializer.data)
+
 
 @api_view(['PUT'])
 def edit_product(request, pk):
@@ -44,7 +48,8 @@ def edit_product(request, pk):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     return Response(status=status.HTTP_401_UNAUTHORIZED)
 
-api_view(['DELETE'])
+
+@api_view(['DELETE'])
 def delete_product(request, pk):
     product = Product.objects.get(pk=pk)
     if request.user.is_staff:
@@ -52,50 +57,24 @@ def delete_product(request, pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
     return Response(status=status.HTTP_401_UNAUTHORIZED)
 
-'''
-@api_view(['GET', 'PUT', 'DELETE'])
-def product_detail(request, name):
-    try:
-        prod = Product.objects.get(name=name)
-    except Product.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == 'GET':
-        serializer = ProductSerializer(prod)
-        return Response(serializer.data)
-
-    elif request.method == 'PUT':
-        if request.user.is_staff:
-            serializer = ProductSerializer(prod, data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        else:
-            return Response(status=status.HTTP_401_UNAUTHORIZED)
-
-    elif request.method == 'DELETE':
-        if request.user.is_staff:
-            prod.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        else:
-            return Response(status=status.HTTP_401_UNAUTHORIZED)
-'''
 
 @api_view(['GET'])
 def search(request):
     query = request.query_params.get('query')
-    if query == None:
+    if query is None:
         query = ''
     prod = Product.objects.filter(name__icontains=query)
     serializer = ProductSerializer(prod, many=True)
-    return Response({ 'products': serializer.data })
+    return Response({'products': serializer.data})
+
 
 class ReviewList(generics.ListCreateAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
+
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
 
 class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()

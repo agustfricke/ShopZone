@@ -10,6 +10,7 @@ import Home from "./pages/Home"
 import AdminPage from "./pages/AdminPage"
 import SoloProduct from "./pages/SoloProduct"
 import Order from "./pages/Order"
+import Foo from "./pages/Foo";
 
 
 function App() {
@@ -22,7 +23,8 @@ function App() {
           <Route element={<PrivateRoute/>}>
             <Route index element={<Home/>} />
             <Route path='product/' element={<SoloProduct/>} />
-            <Route path='order/' element={<Order/>} />
+            <Route path='cart/' element={<Order/>} />
+            <Route path='foo/' element={<Foo/>} />
           </Route>
 
           <Route path='admin' element={<AdminRoute/>}>

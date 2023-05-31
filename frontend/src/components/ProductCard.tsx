@@ -13,6 +13,7 @@ const ProductCard = ({ product, page }: Props) => {
   const addToCart = useCartStore(state => state.addToCart)
 
     return (
+    <div>
             <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <Link to={`/product/${product.name}`}>
             <img className="rounded-t-lg" src={`http://127.0.0.1:8000${product.image}`}  alt="" />
@@ -77,6 +78,7 @@ const ProductCard = ({ product, page }: Props) => {
 
         </div>
 
+        </div>
         </div>
 
         )

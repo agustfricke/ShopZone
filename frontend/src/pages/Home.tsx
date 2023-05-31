@@ -6,7 +6,7 @@ import { useInView } from 'react-intersection-observer'
 import { useEffect } from 'react';
 import Loader from "../components/Loader";
 import toast from "react-hot-toast";
-
+import React from "react";
 
 const Home = () => {
 
@@ -20,6 +20,8 @@ const Home = () => {
     }
   )
 
+  console.log(data)
+
   useEffect(() => {
     if (inView) {
       fetchNextPage()
@@ -31,32 +33,32 @@ const Home = () => {
 
   return (
     <>
-    
 
-      <div className="p-8 mt-[50px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
-
+        <div className="p-8 mt-[50px] grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-16">
         {data?.pages.map((page: any) => (
 
-          <>
-
-            <div key={page.meta.page}>
+<>
+              <React.Fragment key={page.meta.next}>
               {page.data.map((product: Product)=> (
                 <ProductCard key={product.id} product={product} page={'home'}/>
               ))}
-            </div>
+            </React.Fragment>
 
-          </>
-
-        ))}
-
-        {!isLoading && data?.pages.length === 0 && <p className="text-xl text-slate-800 dark:text-slate-200">No more results</p>}
+                {!isLoading && data?.pages.length === 0 && <p className="text-xl text-slate-800 dark:text-slate-200">No more results</p>}
         {!isLoading && data?.pages?.length !== undefined && data.pages.length > 0 && hasNextPage && (
           <div ref={ref}>
             {isLoading || isFetchingNextPage ? <Loader /> : null}
           </div>
         )}
 
-      </div>
+</>
+
+
+        ))}
+
+
+        </div>
+
 
     </>
   )

@@ -8,12 +8,14 @@ import { Link } from "react-router-dom";
 import { useAuthStore } from "../store/auth";
 import Logo from '../assets/cart.png'
 import jwt_decode from "jwt-decode"
+import { useCartStore } from "../store/cart"
 
 const Header = () => {
 
   const { toggleDarkMode, darkMode } = useDarkMode();
   const token : string = useAuthStore.getState().access;
   const { isAuth } = useAuthStore()
+    const cart = useCartStore(state => state.cart);
 
   type Token = {
     is_staff: boolean
@@ -146,7 +148,7 @@ const Header = () => {
                 <Link to={'/cart'} className="text-slate-900 hover:text-black dark:text-slate-200 dark:hover:text-white">
                   <HiOutlineShoppingBag size={23}/>
                 </Link>
-                <span className="text-slate-900 dark:text-slate-200">4</span>
+                <span className="text-slate-900 dark:text-slate-200">{cart.length}</span>
 
                 {isAuth && (
                   <Menu as="div" className="relative ml-2">
