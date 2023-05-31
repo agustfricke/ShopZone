@@ -6,6 +6,5 @@ urlpatterns = [
     path('login/', views.MyTokenObtainPairSerializer.as_view()),
     path('refresh/', TokenRefreshView.as_view()),
     path('register/', views.register),
-    # path('me/', views.UserDetails.as_view()),
-    path('users/', views.me)
+    path('users/', views.get_users),
 ]

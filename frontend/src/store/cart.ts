@@ -1,6 +1,6 @@
 import { create } from "zustand"
 import { persist } from "zustand/middleware";
-import { Product } from "../types"
+import { Product } from "../Interfaces";
 
 interface State {
  cart: Product[]
@@ -30,14 +30,14 @@ export const useCartStore = create(persist<State & Actions>((set, get) => ({
    )
    set(state => ({
     cart: updatedCart,
-    totalPrice: state.totalPrice + Number(product.price),
+    totalPrice: state.totalPrice + product.price,
    }))
   } else {
    const updatedCart = [...cart, { ...product, quantity: 1 }]
 
    set(state => ({
     cart: updatedCart,
-    totalPrice: state.totalPrice + Number(product.price),
+    totalPrice: state.totalPrice + product.price,
    }))
   }
  },

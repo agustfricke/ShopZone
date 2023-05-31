@@ -8,6 +8,8 @@ import RegisterPage from "./pages/RegisterPage"
 import Home from "./pages/Home"
 
 import AdminPage from "./pages/AdminPage"
+import SoloProduct from "./pages/SoloProduct"
+import Order from "./pages/Order"
 
 
 function App() {
@@ -19,6 +21,8 @@ function App() {
 
           <Route element={<PrivateRoute/>}>
             <Route index element={<Home/>} />
+            <Route path='product/' element={<SoloProduct/>} />
+            <Route path='order/' element={<Order/>} />
           </Route>
 
           <Route path='admin' element={<AdminRoute/>}>
