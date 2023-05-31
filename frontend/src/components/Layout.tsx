@@ -7,7 +7,7 @@ const Layout = () => {
       <div>
           <Toaster />
           <Header />
-        <div className="flex justify-center min-h-screen bg-white dark:bg-gray-900 ">
+        <div className="min-h-screen bg-white dark:bg-gray-900 ">
           <Outlet />
         </div>
       </div>

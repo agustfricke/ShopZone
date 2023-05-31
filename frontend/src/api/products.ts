@@ -44,8 +44,9 @@ export const postProduct = async (data: Product) => {
   await authApi.post('products/create/', formData);
 }
 
+
 export const getProducts = async ({ pageParam = 1 }) => {
-  const response = await axi.get(`/products/?page=${pageParam}&pages=10`);
+  const response = await axi.get(`/products/?page=${pageParam}&pages=9`);
   return response.data;
 }
 

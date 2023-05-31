@@ -16,7 +16,7 @@ const Home = () => {
     ['products'],
     getProducts,
     {
-      getNextPageParam: (lastPage: any ) => lastPage.meta.next
+      getNextPageParam: (page: any ) => page.meta.next
     }
   )
 
@@ -34,17 +34,18 @@ const Home = () => {
   return (
     <>
 
-        <div className="p-8 mt-[50px] grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-16">
         {data?.pages.map((page: any) => (
 
 <>
-              <React.Fragment key={page.meta.next}>
+                <div className="flex justify-center">
+              <div key={page.meta.next} className="p-8 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-16">
               {page.data.map((product: Product)=> (
                 <ProductCard key={product.id} product={product} page={'home'}/>
               ))}
-            </React.Fragment>
+            </div>
+            </div>
 
-                {!isLoading && data?.pages.length === 0 && <p className="text-xl text-slate-800 dark:text-slate-200">No more results</p>}
+        {!isLoading && data?.pages.length === 0 && <p className="text-xl text-slate-800 dark:text-slate-200">No more results</p>}
         {!isLoading && data?.pages?.length !== undefined && data.pages.length > 0 && hasNextPage && (
           <div ref={ref}>
             {isLoading || isFetchingNextPage ? <Loader /> : null}
@@ -57,7 +58,6 @@ const Home = () => {
         ))}
 
 
-        </div>
 
 
     </>
