@@ -64,7 +64,7 @@ const ProductCard = ({ product, page }: Props) => {
         </svg>
         </button>
 
-        <Link to={`/products/${product.name}`} className="inline-flex items-center mx-3
+        <Link to={`/product/${product.name}`} className="inline-flex items-center mx-3
         px-3 py-2 text-sm font-medium text-center text-white 
         bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 
         focus:outline-none focus:ring-blue-300 dark:bg-blue-600 

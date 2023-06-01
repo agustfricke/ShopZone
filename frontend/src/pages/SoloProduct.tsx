@@ -1,15 +1,29 @@
+import { getProduct } from "../api/products";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
+import Loader from "../components/Loader";
+import { toast } from "react-hot-toast";
+import Reviews from "../components/Reviews";
 
 const SoloProduct = () => {
 
+    const { name } = useParams();
+
+  const { data,  isLoading, error } = useQuery(['product', name], () => getProduct(name))
+
+    if (isLoading) return <Loader/>
+    if(error instanceof Error) return <>{toast.error(error.message)}</>
+
     return (
+    <>
         <div className="bg-white dark:bg-gray-900">
         <div className="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
         <div className="font-light text-gray-500 sm:text-lg dark:text-gray-400">
             <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
-                Arch Linux 
+                {data.name}
             </h2>
             <p className="mb-4 font-bold">
-                I use arch btw
+                {data.description}
             </p>
         <a href="#" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
         Add to Cart
@@ -20,11 +34,17 @@ const SoloProduct = () => {
         </a>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 mt-8">
-            <img className="w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-2.png" alt="office content 1"/>
+            <img className="w-full" 
+            src={`http://127.0.0.1:8000${data.image}`} alt="office content 1"/>
+
             </div>
             </div>
-            </div>
+
+<Reviews/>
+
+</>
+
+
            )
 
 };

@@ -22,7 +22,7 @@ function App() {
 
           <Route element={<PrivateRoute/>}>
             <Route index element={<Home/>} />
-            <Route path='product/' element={<SoloProduct/>} />
+            <Route path='product/:name' element={<SoloProduct/>} />
             <Route path='cart/' element={<Order/>} />
             <Route path='foo/' element={<Foo/>} />
           </Route>
