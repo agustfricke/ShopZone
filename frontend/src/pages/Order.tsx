@@ -3,7 +3,6 @@ import { useCartStore } from "../store/cart"
 
 const Order = () => {
 
-
     const removeFromCart = useCartStore(state => state.removeFromCart)
   const addToCart = useCartStore(state => state.addToCart)
         const cart = useCartStore(state => state.cart);

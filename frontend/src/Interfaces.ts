@@ -13,5 +13,4 @@ export interface Product {
 
 export interface Token {
     exp: number
-
 };

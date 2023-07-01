@@ -2,6 +2,7 @@ from django.db import models
 from users.models import User
 from products.models import Product
 
+
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     shipping_price = models.CharField(max_length=250, blank=True)
@@ -10,6 +11,7 @@ class Order(models.Model):
     delivered_at = models.DateTimeField(auto_now_add=False, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
+
 class Orderitem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
@@ -17,6 +19,7 @@ class Orderitem(models.Model):
     quantity = models.IntegerField(null=True, blank=True, default=0)
     price = models.CharField(max_length=250, blank=True)
     # filter by product name and get the total quantity sold
+
 
 class ShippingAddress(models.Model):
     order = models.OneToOneField(Order, on_delete=models.CASCADE, null=True, blank=True)

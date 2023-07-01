@@ -1,5 +1,6 @@
 import { authApi, axi } from "./useAxios";
 
+
 export const registerRequest = async (email: string, username: string, password: string) => {
   axi.post("/users/register/", {email, username, password});
 }
