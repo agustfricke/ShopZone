@@ -9,7 +9,7 @@ import { toast } from 'react-hot-toast';
 
 const LoginPage = () => {
 
-  const navigate = useNavigate();
+        const navigate = useNavigate();
   const setToken = useAuthStore((state) => state.setToken);
   const { isAuth } = useAuthStore()
 
