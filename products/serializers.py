@@ -1,8 +1,8 @@
 from rest_framework import serializers
 from . models import Product, Review
 
-class ReviewSerializer(serializers.ModelSerializer):
 
+class ReviewSerializer(serializers.ModelSerializer):
     avatar = serializers.SerializerMethodField(source='user.avatar.url')
     user = serializers.ReadOnlyField(source='user.username')
 
@@ -26,4 +26,3 @@ class ProductSerializer(serializers.ModelSerializer):
         reviews = obj.review_set.all()
         serializer = ReviewSerializer(reviews, many=True)
         return serializer.data
-
