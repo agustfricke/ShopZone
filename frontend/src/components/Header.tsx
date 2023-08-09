@@ -9,6 +9,8 @@ import { useAuthStore } from "../store/auth";
 import Logo from '../assets/cart.png'
 import jwt_decode from "jwt-decode"
 import { useCartStore } from "../store/cart"
+// new
+import { useSearchStore } from "../store/search";
 
 const Header = () => {
 
@@ -16,6 +18,15 @@ const Header = () => {
   const token : string = useAuthStore.getState().access;
   const { isAuth } = useAuthStore()
     const cart = useCartStore(state => state.cart);
+
+  // new
+  const searchTerm = useSearchStore((state) => state.searchTerm);
+  const setSearchTerm = useSearchStore((state) => state.setSearchTerm);
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+  // end new -> pass to input
 
   type Token = {
     is_staff: boolean
@@ -35,6 +46,8 @@ const Header = () => {
   function classNames(...classes: any) {
     return classes.filter(Boolean).join(' ')
   }
+
+  // data array de productos
 
   return (
     <Disclosure as="nav" className="bg-grey dark:bg-gray-800">

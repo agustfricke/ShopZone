@@ -7,6 +7,11 @@ const AdminPage = () => {
 
   const [show, setShow] = useState(0)
 
+  // 1- search input
+  // 2- if 0, 1, 2 hace fetch a una funcion diferente
+  // 3- Motra los resultados en SearchUsers, SearchOrders, SearchProducts
+  // 4- Si show es igual a 0 y no input -> Products else SearchProducts
+
   return (
 <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
     <div className="mx-auto max-w-screen-xl px-4 lg:px-12">

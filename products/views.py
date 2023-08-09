@@ -8,6 +8,20 @@ from . models import Product, Review
 from . serializers import ProductSerializer, ReviewSerializer
 from backend.pagination import CustomPagination
 
+'''
+@api_view(['GET'])
+def mi_vista(request):
+    queryset = MiModelo.objects.all().distinct('campo_deseado')
+    serializer = MiModeloSerializer(queryset, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def get_products_by_category(request, category):
+    products = Product.objects.filter(category=category)
+    serializer = ProductSerializer(products, many=True)
+    return Response(serializer.data)
+'''
+
 
 @api_view(['POST'])
 def create_porduct(request):
