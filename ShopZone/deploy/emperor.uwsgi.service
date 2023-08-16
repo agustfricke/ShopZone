@@ -1,0 +1,9 @@
+[Unit]
+Description=uwsgi emperor for shop zone webite
+After=network.target
+[Service]
+User=admin
+Restart=always
+ExecStart=/home/admin/shop-z/env/bin/uwsgi --emperor /home/admin/shop-z/env/vassals --uid www-data --gid www-data
+[Install]
+WantedBy=multi-user.target
