@@ -4,7 +4,7 @@
 
 #### ShopZone-Tutorial
 - es la carpeta que use para el 
-<a src="https://www.youtube.com/watch?v=jSMp4XcZAnI">tutorial de YouTube</a>
+<a href="https://www.youtube.com/watch?v=jSMp4XcZAnI">tutorial de YouTube</a>
 
 #### ShopZone 
 - es la capeta con el proyecto terminado
