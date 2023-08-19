@@ -1,8 +1,12 @@
 # ShopZone
 :credit_card: Online shop made with TypeScript and Django Rest Framework
 
+### Instalar y usar
+
+```bash
 git clone https://github.com/agustfricke/ShopZone.git
 cd ShopZone/ShopZone
+```
 
 python3 -m venv env
 source env/bin/activate
