@@ -26,10 +26,6 @@ pip install -r requirements.txt
 ```
 
 ```bash
-python3 manage.py migrate
-```
-
-```bash
 mkdir dist
 mkdir dist/static
 ```
