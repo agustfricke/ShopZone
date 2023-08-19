@@ -52,4 +52,9 @@ npm run dev
 
 ## Dale una ⭐
 
+![Screenshot 2023-08-19 17-08-25](https://github.com/agustfricke/ShopZone/assets/110266171/b3b4f4e5-18a0-4631-961d-6d20a51a012c)
+![Screenshot 2023-08-19 17-08-41](https://github.com/agustfricke/ShopZone/assets/110266171/fd92c404-32b9-407b-8a9a-25b7db0f13ca)
+![Screenshot 2023-08-19 17-08-44](https://github.com/agustfricke/ShopZone/assets/110266171/d8f5506e-1f73-4cd4-b33a-c32b52818a8c)
+![Screenshot 2023-08-19 17-08-11](https://github.com/agustfricke/ShopZone/assets/110266171/b53ff643-19b7-4c5a-b96f-0985da269dce)
+
 
