@@ -46,7 +46,7 @@ const EditProductPage = () => {
         mutationFn: edit_product,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["products"] });
-            toast.success("Product created!")
+            toast.success("Product edited!")
             navigate('/admin')
         },
         onError: () => {

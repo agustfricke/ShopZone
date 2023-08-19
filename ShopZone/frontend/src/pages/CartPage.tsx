@@ -268,7 +268,7 @@ const CartPage = () => {
             <div className="ml-[180px]">
               <PayPalScriptProvider 
               options={{ 
-                  clientId: "AdMZlXnm2BwUAVhNAJJFKExpArykohIQXsxq-ShJcLOD-XzbJgmFtKmeyA_-WIJkC49cUR7WmOFjDIal",
+                clientId: "",
                 currency: "USD"
               }}
                   >

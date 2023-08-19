@@ -89,8 +89,6 @@ def edit_product(request, pk):
             category = serializer.validated_data['category']
             s = name + category
             slug = slugify(s)
-            if serializer.Meta.model.objects.filter(slug=slug).exists():
-                return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
             serializer.save(user=request.user, slug=slug)
             return Response(serializer.data)
         return Response(status=status.HTTP_400_BAD_REQUEST)
