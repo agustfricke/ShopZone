@@ -7,7 +7,7 @@
 <a href="https://www.youtube.com/watch?v=jSMp4XcZAnI">tutorial de YouTube</a>
 
 #### ShopZone 
-- es la capeta con el proyecto terminado
+- es la capeta con el proyecto terminado, para usar Paypal se nesesita el clientId que se encuentra en linea 271 - del archivo ShopZone/ShopZone/frontend/src/pages/CartPage.tsx, pueden conseguir el clientId en su cuenta developer de PayPal
 
 ### Instalar y usar
 
