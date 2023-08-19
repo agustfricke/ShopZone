@@ -1,5 +1,13 @@
 # ShopZone
-:credit_card: Online shop made with TypeScript and Django Rest Framework
+:credit_card: Online shop realizado con React y TypeScript como frontend y Django Rest Framework como backend
+
+
+#### ShopZone-Tutorial
+- es la carpeta que use para el tutorial
+<iframe width="560" height="315" src="https://www.youtube.com/embed/2OBkcJuBeGk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+#### ShopZone 
+- es la capeta con el proyecto terminado
 
 ### Instalar y usar
 
