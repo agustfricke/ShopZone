@@ -10,8 +10,6 @@ import jwt_decode from "jwt-decode"
 import { useCartStore } from "../store/cart"
 import { Token } from "../Interfaces";
 import { useSearchStore } from "../store/search";
-import { get_solo_user } from "../api/users";
-import { useQuery } from "@tanstack/react-query";
 
 const Header = () => {
 
@@ -22,17 +20,14 @@ const Header = () => {
 
     let is_admin: boolean;
     let user_id: number;
+    let avatar: string;
 
   if(isAuth) {
     const tokenDecoded: Token = jwt_decode(token)
     is_admin = tokenDecoded.is_staff;
     user_id = tokenDecoded.user_id;
+    avatar = String(tokenDecoded.avatar)
   } 
-
-    const { data: user } = useQuery({
-        queryKey: ['users'],
-        queryFn: () => get_solo_user(user_id)
-    }) 
 
   const setSearchTerm = useSearchStore((state) => state.setSearchTerm);
 
@@ -172,13 +167,11 @@ const Header = () => {
                     <div>
                       <Menu.Button className="flex rounded-full ml-8 text-sm focus:outline-none ">
                         <span className="sr-only">Open user menu</span>
-                        {user && user.avatar !== undefined && 
                         <img
                           className="h-8 w-8 rounded-full"
-                            src={`${import.meta.env.VITE_BACKEND_URL}${user.avatar}`}
+                            src={`${import.meta.env.VITE_BACKEND_URL}${avatar}`}
                           alt=""
                         />
-                        }
                       </Menu.Button>
                     </div>
                     <Transition
